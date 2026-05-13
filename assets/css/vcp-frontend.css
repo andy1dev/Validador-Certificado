@@ -1,0 +1,147 @@
+/* Estilos generales del contenedor */
+.vcp-wrapper {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: all 0.3s ease;
+    border: 1px solid #eaeaea;
+}
+
+.vcp-wrapper:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.vcp-wrapper h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+
+.vcp-wrapper label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* Estilos de los inputs */
+.vcp-wrapper input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    background-color: #fafafa;
+}
+
+.vcp-wrapper input[type="text"]:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.15);
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* Forzar mayúsculas visualmente en el campo de nombres */
+#vcp-nombres {
+    text-transform: uppercase;
+}
+
+/* Estilos de botones */
+.vcp-wrapper button {
+    width: 100%;
+    padding: 14px;
+    background-color: #0073aa;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 115, 170, 0.2);
+}
+
+.vcp-wrapper button:hover:not(:disabled) {
+    background-color: #005177;
+    box-shadow: 0 6px 12px rgba(0, 115, 170, 0.3);
+    transform: translateY(-1px);
+}
+
+.vcp-wrapper button:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 115, 170, 0.2);
+}
+
+.vcp-wrapper button:disabled {
+    background-color: #cccccc;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Mensajes y animaciones */
+#vcp-message {
+    font-weight: 500;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Loader animado */
+#vcp-loader {
+    text-align: center;
+    color: #0073aa;
+    font-weight: 500;
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#vcp-loader::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 2px solid #0073aa;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Paso 2 con animación suave */
+#vcp-step-2 {
+    animation: slideDown 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* Keyframes */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}

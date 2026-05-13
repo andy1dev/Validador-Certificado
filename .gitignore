@@ -1,0 +1,21 @@
+# WordPress
+wp-config.php
+wp-content/uploads/
+*.log
+
+# Dependencies
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+tmp/
+temp/
+*.tmp
