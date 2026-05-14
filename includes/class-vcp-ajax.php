@@ -115,10 +115,15 @@ class VCP_Ajax {
         $pdf->useTemplate( $tplIdx, 0, 0, null, null, true );
 
         $pdf->SetFont( $font_type, '', $font_size );
-        $pdf->SetXY( $x, $y );
+        
         // Codificar a ISO-8859-1 para compatibilidad con FPDF con acentos
         $texto_imprimir = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $nombres);
-        $pdf->Cell( 0, 10, $texto_imprimir, 0, 1, 'L' );
+        
+        // Calcular el ancho del texto para centrarlo respecto a la coordenada X
+        $text_width = $pdf->GetStringWidth( $texto_imprimir );
+        $pdf->SetXY( $x - ( $text_width / 2 ), $y );
+        
+        $pdf->Cell( $text_width, 10, $texto_imprimir, 0, 1, 'C' );
 
         // Limpiar archivo temporal si fue descargado
         if ( ! $is_local ) {

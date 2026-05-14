@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'VCP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'VCP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'VCP_PLUGIN_VERSION', '2.0' );
+define( 'VCP_PLUGIN_VERSION', '2.5' );
 
 // Incluir archivos necesarios
 require_once VCP_PLUGIN_DIR . 'includes/class-vcp-db.php';
