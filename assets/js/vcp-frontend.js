@@ -67,6 +67,11 @@ jQuery(document).ready(function($) {
     $('#vcp-form-descarga').on('submit', function() {
         $('#vcp-hidden-cedula').val($('#vcp-cedula').val());
         $('#vcp-hidden-nombres').val($('#vcp-nombres').val().toUpperCase());
+        
+        // Recargar la página después de un breve retraso para permitir que inicie la descarga
+        setTimeout(function() {
+            window.location.reload();
+        }, 1500);
     });
 });
 
