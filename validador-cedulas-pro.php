@@ -3,7 +3,7 @@
  * Plugin Name: Validador de Cédulas Pro
  * Plugin URI:  https://tusitio.com
  * Description: Valida cédulas desde una base de datos personalizada y genera certificados en PDF.
- * Version:     2.0
+ * Version:     2.5
  * Author:      sptech
  * Text Domain: validador-cedulas-pro
  */
