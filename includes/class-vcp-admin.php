@@ -8,6 +8,7 @@ class VCP_Admin {
         add_action( 'admin_post_vcp_process_csv', array( __CLASS__, 'process_csv_upload' ) );
         add_action( 'admin_post_vcp_manage_cedula', array( __CLASS__, 'manage_cedula' ) );
         add_action( 'admin_post_vcp_delete_cedula', array( __CLASS__, 'delete_cedula' ) );
+        add_action( 'admin_post_vcp_delete_all_cedulas', array( __CLASS__, 'delete_all_cedulas' ) );
         add_action( 'admin_post_vcp_export_downloads', array( __CLASS__, 'export_downloads_csv' ) );
     }
 
@@ -121,15 +122,21 @@ class VCP_Admin {
                     </form>
                 </div>
 
-                <!-- Buscador -->
-                <form method="get" action="">
-                    <input type="hidden" name="page" value="vcp-admin">
-                    <p class="search-box">
-                        <label class="screen-reader-text" for="cedula-search-input">Buscar Cédula:</label>
-                        <input type="search" id="cedula-search-input" name="s" value="<?php echo isset($_GET['s']) ? esc_attr($_GET['s']) : ''; ?>">
-                        <input type="submit" id="search-submit" class="button" value="Buscar Cédula">
-                    </p>
-                </form>
+                <!-- Buscador y Borrar Todo -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <form method="get" action="" style="display: inline-block;">
+                        <input type="hidden" name="page" value="vcp-admin">
+                        <p class="search-box" style="margin: 0; position: relative;">
+                            <label class="screen-reader-text" for="cedula-search-input">Buscar Cédula:</label>
+                            <input type="search" id="cedula-search-input" name="s" value="<?php echo isset($_GET['s']) ? esc_attr($_GET['s']) : ''; ?>">
+                            <input type="submit" id="search-submit" class="button" value="Buscar Cédula">
+                        </p>
+                    </form>
+                    
+                    <a href="<?php echo wp_nonce_url( admin_url('admin-post.php?action=vcp_delete_all_cedulas'), 'vcp_delete_all_cedulas_nonce', 'vcp_delete_all_nonce' ); ?>" onclick="return confirm('¿Estás SEGURO de que deseas borrar TODAS las cédulas registradas? Esta acción no se puede deshacer.');" class="button" style="color: #d63638; border-color: #d63638;">
+                        <span class="dashicons dashicons-trash" style="margin-top: 3px;"></span> Borrar Todas las Cédulas
+                    </a>
+                </div>
 
                 <!-- Tabla de Resultados -->
                 <?php
@@ -357,6 +364,20 @@ class VCP_Admin {
             $table_name = $wpdb->prefix . 'validador_cedulas';
             $wpdb->delete($table_name, array('id' => $id));
         }
+        
+        wp_redirect( admin_url( 'admin.php?page=vcp-admin#tab-3' ) );
+        exit;
+    }
+
+    public static function delete_all_cedulas() {
+        if ( ! current_user_can('manage_options') ) wp_die( 'No tienes permisos.' );
+        if ( ! isset( $_GET['vcp_delete_all_nonce'] ) || ! wp_verify_nonce( $_GET['vcp_delete_all_nonce'], 'vcp_delete_all_cedulas_nonce' ) ) wp_die( 'Error de seguridad.' );
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'validador_cedulas';
+        
+        // Usamos TRUNCATE para vaciar la tabla por completo y reiniciar los IDs autoincrementables
+        $wpdb->query("TRUNCATE TABLE $table_name");
         
         wp_redirect( admin_url( 'admin.php?page=vcp-admin#tab-3' ) );
         exit;
